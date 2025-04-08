@@ -1,15 +1,20 @@
-const { Scema, model } = require('mongoose');
-const departmentSchema = new Schema({
-  nameUser: {
-    type: String,
-    required: true,
-    ref: 'User'
+const mongoose = require('mongoose');
 
-  },
-  description: {
+const departmentSchema = new mongoose.Schema({
+  
+  name: {
     type: String,
     required: true,
   },
+  employees:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee'
+  }]
 });
 
-module.exports = model('Department', departmentSchema);
+const DepartmentModel = mongoose.model(
+  'Department',
+  departmentSchema
+)
+module.exports = DepartmentModel;
+// Modelo de departamento

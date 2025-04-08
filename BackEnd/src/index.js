@@ -14,6 +14,7 @@ app.use(cors())
 
 
 app.use( '/api/employee', require('./routes/employee.route'))
+app.use( '/api/department', require('./routes/department.route'))
 
 app.listen(PORT, () => {
     try {

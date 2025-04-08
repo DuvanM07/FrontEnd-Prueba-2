@@ -1,17 +1,33 @@
 const { model } = require('mongoose');
 
 const EmployeeModel = require('../models/employee.model')
+const DepartmentModel = require('../models/departament.model')
 
 
 const createEmployee = async (req, res) => {
-    const { name, lastname, lastname2 } = req.body
-    try {
-    const dbEmployee = new Employee({ name, lastname, lastname2 });
-    await dbEmployee.save();
-    console.error('Employee created:', dbEmployee);
-    res.status(201).json(dbEmployee);
-    console.error('error', error);
-  } catch (error) {
+  const inputData = req.body;
+
+  const departmentId = inputData.department; // Obtener el ID del departamento desde el cuerpo de la solicitud
+  
+  try {
+    const department = await DepartmentModel.findById(departmentId); // Verificar si el departamento existe
+    if (!department) {
+      return res.status(400).json({ msg: 'Department not found' });
+    }
+
+    const data = await EmployeeModel.create(inputData);
+    console.log('data', data._id.toString());
+    department.employees.push(data._id.toString()); // Agregar el ID del empleado al departamento
+    await department.save(); // Guardar los cambios en el departamento
+
+    res.status(201).json({
+      ok: true,
+      msg: 'Employee created successfully',
+      data
+    });
+  
+  } 
+  catch (error) {
     
     res.status(500).json({ msg: 'Error creating employee', error });
     console.error('error', error);
@@ -21,7 +37,7 @@ const createEmployee = async (req, res) => {
 const getEmployees = async ( req, res) => {
 
   try {
-    const data = await EmployeeModel.find({}).populate('Department');
+    const data = await EmployeeModel.find().populate('department');
 
     res.json({
       ok:true,
