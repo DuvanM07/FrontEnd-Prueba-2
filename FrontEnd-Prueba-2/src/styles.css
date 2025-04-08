@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff8f1;
+    color: #333;
+}
+
+form,
+.list-container {
+    background-color: #fff4e1;
+    border: 1px solid #ffa94d;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+input,
+select,
+button {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid #ffa94d;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #ffa94d;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+
+<div class="list-container">
+    <h2>Employee List</h2>
+    <button routerLink="/employees/new">Add Employee</button>
+    <ul>
+        @for( emp of employees; track emp._id ) {
+            <li>
+                {{ emp.name }} {{ emp.lastname1 }} - Dept: {{ emp.codigo_departamento }}
+                <button (click)="editEmployee(emp._id)">Edit</button>
+                <button (click)="deleteEmployee(emp._id)">Delete</button>
+            </li>
+        }
+    </ul>
+</div>

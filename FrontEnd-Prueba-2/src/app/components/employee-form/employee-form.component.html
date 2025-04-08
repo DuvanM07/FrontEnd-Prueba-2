@@ -1,0 +1,72 @@
+<form class="form form-register-emp" [formGroup]="formData" (ngSubmit)="onSubmit()"> 
+    <h1 class="form-title"> Register Employee</h1>
+
+    <div class="form-container">
+        <div class="form-content">
+            <div class="field">
+                <label for="name">Product Name *</label>
+                <input type="text" formControlName="name" id="name" placeholder="Ex: Spaghetti carbonara"
+                    class="inputs-form" />
+                <div class="error">
+                    @if( formData.get('name')?.invalid && (formData.get('name')?.dirty || formData.get('name')?.touched)
+                    ) {
+                    @if( formData.get('name')?.errors?.['required'] ) {
+                    <span>Product name is required</span>
+                    }
+                    }
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="description">Description</label>
+                <textarea formControlName="description" id="description" placeholder="Brief description of the product"
+                    class="inputs-form"></textarea>
+            </div>
+
+            <div class="field">
+                <label for="price">Price *</label>
+                <input type="number" formControlName="price" id="price" placeholder="Ex: 30" class="inputs-form" />
+                <div class="error">
+                    @if( formData.get('price')?.invalid && (formData.get('price')?.dirty ||
+                    formData.get('price')?.touched) ) {
+                    @if( formData.get('price')?.errors?.['required'] ) {
+                    <span>Product price is required</span>
+                    }
+                    @if ( formData.get('price')?.errors?.['min'] ) {
+                    <span>The price cannot be less than zero</span>
+                    }
+                    }
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="urlImage">Url Image</label>
+                <input type="text" formControlName="urlImage" id="urlImage"
+                    placeholder="Ex: https://example.com/image.jpg" class="inputs-form" />
+            </div>
+
+
+            <div class="field">
+                <label>State *</label>
+                <div class="state">
+                    <input type="radio" formControlName="state" id="stateAvailable" [value]="true" />
+                    <label for="stateAvailable">Available</label>
+                    <input type="radio" formControlName="state" id="stateNotAvailable" [value]="false" />
+                    <label for="stateNotAvailable">Not Available</label>
+                </div>
+                <div class="error">
+                    @if( formData.get('state')?.invalid && (formData.get('state')?.dirty ||
+                    formData.get('state')?.touched) ) {
+                    @if( formData.get('state')?.errors?.['required'] ) {
+                    <span>Selecting a state is required</span>
+                    }
+                    }
+                </div>
+            </div>
+
+            <div class="field">
+                <button type="submit" [disabled]="formData.invalid" class="btn-submit">Register Product</button>
+            </div>
+        </div>
+    </div>
+</form>
